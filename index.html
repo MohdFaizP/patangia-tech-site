@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Patangia Tech</title>
+  <title>Patangia Tech, Inc.</title>
   <style>
     * {
       margin: 0;
@@ -40,47 +40,47 @@
       z-index: 2;
     }
 
-      .cube-wrapper {
-        width: 220px;
-        height: 220px;
-        perspective: 1000px;
-        z-index: 1;
-        position: absolute;
-        top: calc(300px + 1.3em); 
-        transform: translateY(-50%, -50%);
-        opacity: 0.5;
-      }
+    .cube-wrapper {
+      width: 220px;
+      height: 220px;
+      perspective: 1000px;
+      z-index: 1;
+      position: absolute;
+      top: calc(300px + 1.3em); 
+      transform: translateY(-50%, -50%);
+      opacity: 0.5;
+    }
 
-      .cube {
-        width: 100%;
-        height: 100%;
-        position: relative;
-        transform-style: preserve-3d;
-        animation: rotateCube 12s infinite linear;
-      }
+    .cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotateCube 12s infinite linear;
+    }
 
-      .face {
-        position: absolute;
-        width: 220px;
-        height: 220px;
-        background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.1));
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);
-        border-radius: 20px;
-      }
+    .face {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.1));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+    }
 
-      /* Positioning faces */
-      .front  { transform: translateZ(110px); }
-      .back   { transform: rotateY(180deg) translateZ(110px); }
-      .left   { transform: rotateY(-90deg) translateZ(110px); }
-      .right  { transform: rotateY(90deg) translateZ(110px); }
-      .top    { transform: rotateX(90deg) translateZ(110px); }
-      .bottom { transform: rotateX(-90deg) translateZ(110px); }
+    /* Positioning faces */
+    .front  { transform: translateZ(110px); }
+    .back   { transform: rotateY(180deg) translateZ(110px); }
+    .left   { transform: rotateY(-90deg) translateZ(110px); }
+    .right  { transform: rotateY(90deg) translateZ(110px); }
+    .top    { transform: rotateX(90deg) translateZ(110px); }
+    .bottom { transform: rotateX(-90deg) translateZ(110px); }
 
-      @keyframes rotateCube {
-        0%   { transform: rotateX(0deg) rotateY(0deg); }
-        100% { transform: rotateX(360deg) rotateY(360deg); }
-      }
+    @keyframes rotateCube {
+      0%   { transform: rotateX(0deg) rotateY(0deg); }
+      100% { transform: rotateX(360deg) rotateY(360deg); }
+    }
       
     .center-text {
       margin-top: 300px;
@@ -103,19 +103,29 @@
       max-width: 600px;
     }
 
-    .email {
+    .email-button {
       margin-top: 80px;
-      bottom: 115px;
-      font-size: 1.2rem;
-      font-weight: 500;
-      color: #999;
+      font-size: 1.5rem;
+      color: #fff;
+      background-color: #444;
+      padding: 10px 20px;
+      border-radius: 30px;
+      text-decoration: none;
       letter-spacing: 0.3px;
+      display: inline-block;
+      transition: background 0.3s ease;
+      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.05);
+    }
+
+    .email-button:hover {
+      background-color: #666;
     }
 
     footer {
-      /* margin-top: auto; */
-      margin-top: 50px;
-      bottom: 0px;
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
       font-size: 1rem;
       color: #666;
       letter-spacing: 0.5px;
@@ -149,8 +159,9 @@
         font-size: 1rem;
       }
 
-      .email {
+      .email-button {
         font-size: 0.9rem;
+        padding: 8px 16px;
       }
 
       footer {
@@ -181,7 +192,9 @@
   </div>
 
   <div class="quote">“Great things take time. Apple wasn’t built in a day”</div>
-  <div class="email">info@patangia.tech</div>
+  <a href="mailto:info@patangia.tech" class="email-button">
+      ✉️ 
+  </a>
 
   <footer>© 2025 Patangia Tech, Inc. All rights reserved.</footer>
 

@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Patangia Tech, Inc.</title>
+  <title>Patangia Tech</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon_io_s/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon_io_s/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon_io_s/favicon-16x16.png">
+  <link rel="manifest" href="favicon_io_s/site.webmanifest">
   <style>
     * {
       margin: 0;
@@ -49,6 +53,7 @@
       top: calc(300px + 1.3em); 
       transform: translateY(-50%, -50%);
       opacity: 0.5;
+      will-change: transform;
     }
 
     .cube {
@@ -57,15 +62,18 @@
       position: relative;
       transform-style: preserve-3d;
       animation: rotateCube 12s infinite linear;
+      transform: translateZ(0); 
     }
 
     .face {
       position: absolute;
-      width: 220px;
-      height: 220px;
+      width: 100%;
+      height: 100%;
       background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.1));
       border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.08);
+      backface-visibility: hidden;
+      transform-style: preserve-3d;
     }
 
     /* Positioning faces */
@@ -137,16 +145,26 @@
       }
 
       .cube-wrapper {
-        width: 60px;
-        height: 60px;
-        top: calc(220px + 1.3em); 
-        transform: translateY(-50%, -50%);
+        width: 150px;
+        height: 150px;
+        top: calc(300px + 1.3em); 
+        /* transform: translateY(-50%, -50%); */
+        transform: scale3d(1,1,1); 
+        backface-visibility: hidden;
+        will-change: transform;
       }
 
       .face {
-        width: 60px;
-        height: 60px;
+        width: 150px;
+        height: 150px;
       }
+
+      .front  { transform: translateZ(75px); }
+      .back   { transform: rotateY(180deg) translateZ(75px); }
+      .left   { transform: rotateY(-90deg) translateZ(75px); }
+      .right  { transform: rotateY(90deg) translateZ(75px); }
+      .top    { transform: rotateX(90deg) translateZ(75px); }
+      .bottom { transform: rotateX(-90deg) translateZ(75px); }
 
       .center-text {
         font-size: 6vw;

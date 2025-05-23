@@ -142,14 +142,22 @@
     @media (max-width: 600px) {
       .logo {
         width: 120px;
+        display: block;
+        margin: 0 auto;
+        float: none;
+        transition: all 0.3s ease;
+      }
+
+      .logo.shrink {
+        width: 70px;
+        opacity: 0.8;
       }
 
       .cube-wrapper {
         width: 150px;
         height: 150px;
         top: calc(300px + 1.3em); 
-        /* transform: translateY(-50%, -50%); */
-        transform: scale3d(1,1,1); 
+        transform: translateY(-50%, -50%);
         backface-visibility: hidden;
         will-change: transform;
       }
@@ -214,5 +222,15 @@
 
   <footer>© 2025 Patangia Tech, Inc. All rights reserved.</footer>
 
+  <script>
+    window.addEventListener('scroll', function () {
+      const logo = document.querySelector('.logo');
+      if (window.scrollY > 30) {
+        logo.classList.add('shrink');
+      } else {
+        logo.classList.remove('shrink');
+      }
+    });
+  </script>
 </body>
 </html>

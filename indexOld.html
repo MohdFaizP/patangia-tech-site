@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Patangia Tech</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon_io_s/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon_io_s/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon_io_s/favicon-16x16.png">
+  <link rel="manifest" href="favicon_io_s/site.webmanifest">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(-45deg, #0f0f0f, #1a1a1a, #111111, #000000);
+      background-size: 400% 400%;
+      animation: gradientMove 15s ease infinite;
+      color: #fff;
+      font-family: 'Helvetica Neue', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px 80px;
+      text-align: center;
+      position: relative;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .logo {
+      width: 160px;
+      height: auto;
+      align-self: flex-start;
+      z-index: 2;
+    }
+
+    .cube-wrapper {
+      width: 220px;
+      height: 220px;
+      perspective: 1000px;
+      z-index: 1;
+      position: absolute;
+      top: calc(300px + 1.3em); 
+      transform: translateY(-50%, -50%);
+      opacity: 0.5;
+      will-change: transform;
+    }
+
+    .cube {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotateCube 12s infinite linear;
+      transform: translateZ(0); 
+    }
+
+    .face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.1));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.08);
+      backface-visibility: hidden;
+      transform-style: preserve-3d;
+    }
+
+    /* Positioning faces */
+    .front  { transform: translateZ(110px); }
+    .back   { transform: rotateY(180deg) translateZ(110px); }
+    .left   { transform: rotateY(-90deg) translateZ(110px); }
+    .right  { transform: rotateY(90deg) translateZ(110px); }
+    .top    { transform: rotateX(90deg) translateZ(110px); }
+    .bottom { transform: rotateX(-90deg) translateZ(110px); }
+
+    @keyframes rotateCube {
+      0%   { transform: rotateX(0deg) rotateY(0deg); }
+      100% { transform: rotateX(360deg) rotateY(360deg); }
+    }
+      
+    .center-text {
+      margin-top: 300px;
+      font-size: 3.5rem;
+      font-weight: 600;
+      max-width: 90%;
+      line-height: 1.3;
+      filter: brightness(140%);
+      z-index: 2;
+      position: relative;
+    }
+
+    .quote {
+      margin-top: 250px;
+      font-size: 1.5rem;
+      font-weight: 313;
+      color: #bbbbbb;
+      letter-spacing: 0.4px;
+      font-style: italic;
+      max-width: 600px;
+    }
+
+    .email-button {
+      margin-top: 80px;
+      font-size: 1.5rem;
+      color: #fff;
+      background-color: #444;
+      padding: 10px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+      display: inline-block;
+      transition: background 0.3s ease;
+      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.05);
+    }
+
+    .email-button:hover {
+      background-color: #666;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 1rem;
+      color: #666;
+      letter-spacing: 0.5px;
+      padding-top: 40px;
+    }
+
+    @media (max-width: 600px) {
+      .logo {
+        width: 120px;
+        display: block;
+        margin: 0 auto;
+        float: none;
+        transition: all 0.3s ease;
+      }
+
+      .logo.shrink {
+        width: 70px;
+        opacity: 0.8;
+      }
+
+      .cube-wrapper {
+        width: 150px;
+        height: 150px;
+        top: calc(300px + 1.3em); 
+        transform: translateY(-50%, -50%);
+        backface-visibility: hidden;
+        will-change: transform;
+      }
+
+      .face {
+        width: 150px;
+        height: 150px;
+      }
+
+      .front  { transform: translateZ(75px); }
+      .back   { transform: rotateY(180deg) translateZ(75px); }
+      .left   { transform: rotateY(-90deg) translateZ(75px); }
+      .right  { transform: rotateY(90deg) translateZ(75px); }
+      .top    { transform: rotateX(90deg) translateZ(75px); }
+      .bottom { transform: rotateX(-90deg) translateZ(75px); }
+
+      .center-text {
+        font-size: 6vw;
+        margin-top: 220px;
+      }
+
+      .quote {
+        font-size: 1rem;
+      }
+
+      .email-button {
+        font-size: 1rem;
+        padding: 8px 16px;
+      }
+
+      footer {
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Replace this with your actual logo -->
+  <img src="logo dark bg@2x.png" alt="Patangia Tech Logo" class="logo" />
+
+  <div class="cube-wrapper">
+    <div class="cube">
+      <div class="face front"></div>
+      <div class="face back"></div>
+      <div class="face left"></div>
+      <div class="face right"></div>
+      <div class="face top"></div>
+      <div class="face bottom"></div>
+    </div>
+  </div>
+
+  <div class="center-text">
+    <!-- <span>Stealth Mode: Innovation in Progress.</span> -->
+    <span>Stealth Mode - Building the Future.</span>
+  </div>
+
+  <div class="quote">“Great things take time. Apple wasn’t built in a day”</div>
+  <a href="mailto:info@patangia.tech" class="email-button">
+      ✉️ 
+  </a>
+
+  <footer>© 2025 Patangia Tech, Inc. All rights reserved.</footer>
+
+  <script>
+    window.addEventListener('scroll', function () {
+      const logo = document.querySelector('.logo');
+      if (window.scrollY > 30) {
+        logo.classList.add('shrink');
+      } else {
+        logo.classList.remove('shrink');
+      }
+    });
+  </script>
+</body>
+</html>

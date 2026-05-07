@@ -2,235 +2,583 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Patangia Tech — Building the future of human capability. Currently in stealth." />
+  <meta name="theme-color" content="#0a0908" />
+  <meta name="color-scheme" content="dark" />
+
   <title>Patangia Tech</title>
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon_io_s/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon_io_s/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon_io_s/favicon-16x16.png">
-  <link rel="manifest" href="favicon_io_s/site.webmanifest">
+
+  <!-- Favicons (unchanged from original) -->
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon_io_s/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon_io_s/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon_io_s/favicon-16x16.png" />
+  <link rel="manifest" href="favicon_io_s/site.webmanifest" />
+
+  <!-- Open Graph / social -->
+  <meta property="og:title" content="Patangia Tech" />
+  <meta property="og:description" content="Building the future of human capability. Currently in stealth." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://patangia.tech/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Geist:wght@300..600&family=Geist+Mono:wght@400..500&display=swap"
+    rel="stylesheet"
+  />
+
   <style>
-    * {
+    /* ─────────────────────────────────────────────────────────────
+       PATANGIA TECH — editorial dark aesthetic
+       Tokens
+       ───────────────────────────────────────────────────────────── */
+    :root {
+      --bg: #0a0908;
+      --bg-warm: #0e0c0a;
+      --ink: #f5efe6;
+      --ink-soft: rgba(245, 239, 230, 0.62);
+      --ink-faint: rgba(245, 239, 230, 0.32);
+      --accent: #d4a960;
+      --accent-soft: rgba(212, 169, 96, 0.18);
+      --accent-glow: rgba(212, 169, 96, 0.35);
+      --rule: rgba(245, 239, 230, 0.08);
+      --rule-strong: rgba(245, 239, 230, 0.16);
+
+      --display: 'Fraunces', 'Times New Roman', serif;
+      --sans: 'Geist', system-ui, -apple-system, sans-serif;
+      --mono: 'Geist Mono', 'IBM Plex Mono', ui-monospace, monospace;
+
+      --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    html,
     body {
-      background: linear-gradient(-45deg, #0f0f0f, #1a1a1a, #111111, #000000);
-      background-size: 400% 400%;
-      animation: gradientMove 15s ease infinite;
-      color: #fff;
-      font-family: 'Helvetica Neue', sans-serif;
-      min-height: 100vh;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
       overflow-x: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 30px 20px 80px;
-      text-align: center;
-      position: relative;
     }
 
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      position: relative;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    /* Ambient glow behind everything */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background:
+        radial-gradient(ellipse 70% 45% at 50% 35%, rgba(212, 169, 96, 0.09), transparent 70%),
+        radial-gradient(ellipse 50% 35% at 20% 85%, rgba(212, 169, 96, 0.04), transparent 70%),
+        radial-gradient(ellipse 50% 35% at 80% 90%, rgba(180, 140, 80, 0.03), transparent 70%);
+    }
+
+    /* Subtle grain — adds the "printed" editorial feel */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+      opacity: 0.06;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    canvas#neural {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: 0.55;
+    }
+
+    /* ─── Header ─── */
+    header {
+      position: relative;
+      z-index: 10;
+      padding: clamp(20px, 3vw, 32px) clamp(20px, 5vw, 48px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
     }
 
     .logo {
-      width: 160px;
+      width: clamp(110px, 13vw, 150px);
       height: auto;
-      align-self: flex-start;
-      z-index: 2;
+      display: block;
+      opacity: 0;
+      animation: fade-in 1s 0.1s var(--ease) forwards;
     }
 
-    .cube-wrapper {
-      width: 220px;
-      height: 220px;
-      perspective: 1000px;
-      z-index: 1;
-      position: absolute;
-      top: calc(300px + 1.3em); 
-      transform: translateY(-50%, -50%);
-      opacity: 0.5;
-      will-change: transform;
+    .status {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--ink-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      animation: fade-in 1s 0.3s var(--ease) forwards;
     }
 
-    .cube {
-      width: 100%;
-      height: 100%;
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent-glow);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.4; transform: scale(0.78); }
+    }
+
+    /* ─── Main content ─── */
+    main {
       position: relative;
-      transform-style: preserve-3d;
-      animation: rotateCube 12s infinite linear;
-      transform: translateZ(0); 
-    }
-
-    .face {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.1));
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.08);
-      backface-visibility: hidden;
-      transform-style: preserve-3d;
-    }
-
-    /* Positioning faces */
-    .front  { transform: translateZ(110px); }
-    .back   { transform: rotateY(180deg) translateZ(110px); }
-    .left   { transform: rotateY(-90deg) translateZ(110px); }
-    .right  { transform: rotateY(90deg) translateZ(110px); }
-    .top    { transform: rotateX(90deg) translateZ(110px); }
-    .bottom { transform: rotateX(-90deg) translateZ(110px); }
-
-    @keyframes rotateCube {
-      0%   { transform: rotateX(0deg) rotateY(0deg); }
-      100% { transform: rotateX(360deg) rotateY(360deg); }
-    }
-      
-    .center-text {
-      margin-top: 300px;
-      font-size: 3.5rem;
-      font-weight: 600;
-      max-width: 90%;
-      line-height: 1.3;
-      filter: brightness(140%);
-      z-index: 2;
-      position: relative;
-    }
-
-    .quote {
-      margin-top: 250px;
-      font-size: 1.5rem;
-      font-weight: 313;
-      color: #bbbbbb;
-      letter-spacing: 0.4px;
-      font-style: italic;
-      max-width: 600px;
-    }
-
-    .email-button {
-      margin-top: 80px;
-      font-size: 1.5rem;
-      color: #fff;
-      background-color: #444;
-      padding: 10px 20px;
-      border-radius: 30px;
-      text-decoration: none;
-      letter-spacing: 0.3px;
-      display: inline-block;
-      transition: background 0.3s ease;
-      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.05);
-    }
-
-    .email-button:hover {
-      background-color: #666;
-    }
-
-    footer {
-      position: absolute;
-      bottom: 20px;
-      width: 100%;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(40px, 8vh, 80px) clamp(20px, 5vw, 48px);
       text-align: center;
-      font-size: 1rem;
-      color: #666;
-      letter-spacing: 0.5px;
-      padding-top: 40px;
     }
 
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 36px;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      opacity: 0;
+      animation: fade-up 1s 0.5s var(--ease) forwards;
+    }
+
+    .eyebrow::before,
+    .eyebrow::after {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+
+    h1 {
+      font-family: var(--display);
+      font-weight: 300;
+      font-size: clamp(40px, 7.2vw, 92px);
+      line-height: 1.04;
+      letter-spacing: -0.022em;
+      color: var(--ink);
+      max-width: 14ch;
+      font-variation-settings: 'opsz' 144;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fade-up 1.2s 0.7s var(--ease) forwards;
+    }
+
+    h1 em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--accent);
+      font-variation-settings: 'opsz' 144;
+    }
+
+    .lede {
+      font-family: var(--display);
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(15px, 1.55vw, 18px);
+      line-height: 1.55;
+      color: var(--ink-soft);
+      max-width: 42ch;
+      margin: 0 auto;
+      letter-spacing: 0.005em;
+      opacity: 0;
+      animation: fade-up 1.2s 1s var(--ease) forwards;
+    }
+
+    .divider {
+      width: 1px;
+      height: 56px;
+      background: linear-gradient(to bottom, transparent, var(--rule-strong), transparent);
+      margin: 56px auto 36px;
+      opacity: 0;
+      animation: fade-in 1s 1.4s var(--ease) forwards;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 15px 28px;
+      border: 1px solid var(--rule-strong);
+      border-radius: 999px;
+      background: rgba(245, 239, 230, 0.025);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      transition: all 0.4s var(--ease);
+      opacity: 0;
+      animation: fade-up 1s 1.5s var(--ease) forwards;
+    }
+
+    .cta:hover,
+    .cta:focus-visible {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-soft);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .cta:focus-visible {
+      box-shadow: 0 0 0 3px rgba(212, 169, 96, 0.25);
+    }
+
+    .cta-arrow {
+      transition: transform 0.4s var(--ease);
+    }
+
+    .cta:hover .cta-arrow,
+    .cta:focus-visible .cta-arrow {
+      transform: translateX(4px);
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      position: relative;
+      z-index: 10;
+      padding: clamp(20px, 3vw, 32px) clamp(20px, 5vw, 48px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: var(--ink-faint);
+      opacity: 0;
+      animation: fade-in 1s 1.7s var(--ease) forwards;
+    }
+
+    footer a {
+      color: var(--ink-soft);
+      text-decoration: none;
+      transition: color 0.3s var(--ease);
+    }
+
+    footer a:hover,
+    footer a:focus-visible {
+      color: var(--accent);
+      outline: none;
+    }
+
+    .footer-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-meta span.dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--ink-faint);
+    }
+
+    /* ─── Animations ─── */
+    @keyframes fade-in   { to { opacity: 1; } }
+    @keyframes fade-up   {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* ─── Mobile ─── */
     @media (max-width: 600px) {
-      .logo {
-        width: 120px;
-        display: block;
-        margin: 0 auto;
-        float: none;
-        transition: all 0.3s ease;
+      header {
+        padding: 18px 20px;
       }
 
-      .logo.shrink {
-        width: 70px;
-        opacity: 0.8;
+      .status {
+        font-size: 10px;
+        letter-spacing: 0.18em;
       }
 
-      .cube-wrapper {
-        width: 150px;
-        height: 150px;
-        top: calc(300px + 1.3em); 
-        transform: translateY(-50%, -50%);
-        backface-visibility: hidden;
-        will-change: transform;
+      .eyebrow {
+        font-size: 11px;
+        letter-spacing: 0.25em;
+        margin-bottom: 28px;
       }
 
-      .face {
-        width: 150px;
-        height: 150px;
+      .eyebrow::before,
+      .eyebrow::after {
+        width: 16px;
       }
 
-      .front  { transform: translateZ(75px); }
-      .back   { transform: rotateY(180deg) translateZ(75px); }
-      .left   { transform: rotateY(-90deg) translateZ(75px); }
-      .right  { transform: rotateY(90deg) translateZ(75px); }
-      .top    { transform: rotateX(90deg) translateZ(75px); }
-      .bottom { transform: rotateX(-90deg) translateZ(75px); }
-
-      .center-text {
-        font-size: 6vw;
-        margin-top: 220px;
+      h1 {
+        font-size: clamp(34px, 9vw, 52px);
+        max-width: 16ch;
       }
 
-      .quote {
-        font-size: 1rem;
+      .lede {
+        max-width: 32ch;
       }
 
-      .email-button {
-        font-size: 1rem;
-        padding: 8px 16px;
+      .divider {
+        height: 40px;
+        margin: 44px auto 28px;
       }
 
       footer {
-        font-size: 0.75rem;
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+        padding: 24px 20px;
+      }
+
+      canvas#neural {
+        opacity: 0.4;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Animated neural-network particles (decorative, hidden from a11y tree) -->
+  <canvas id="neural" aria-hidden="true"></canvas>
 
-  <!-- Replace this with your actual logo -->
-  <img src="logo dark bg@2x.png" alt="Patangia Tech Logo" class="logo" />
-
-  <div class="cube-wrapper">
-    <div class="cube">
-      <div class="face front"></div>
-      <div class="face back"></div>
-      <div class="face left"></div>
-      <div class="face right"></div>
-      <div class="face top"></div>
-      <div class="face bottom"></div>
+  <header>
+    <img src="logo dark bg@2x.png" alt="Patangia Tech" class="logo" />
+    <div class="status" aria-label="Status: stealth mode">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span>Stealth Mode</span>
     </div>
-  </div>
+  </header>
 
-  <div class="center-text">
-    <!-- <span>Stealth Mode: Innovation in Progress.</span> -->
-    <span>Stealth Mode - Building the Future.</span>
-  </div>
+  <main>
+    <div class="eyebrow">Patangia Tech</div>
 
-  <div class="quote">“Great things take time. Apple wasn’t built in a day”</div>
-  <a href="mailto:info@patangia.tech" class="email-button">
-      ✉️ 
-  </a>
+    <h1>Building the future of <em>human capability</em>.</h1>
 
-  <footer>© 2025 Patangia Tech, Inc. All rights reserved.</footer>
+    <p class="lede">
+      A deep-tech venture currently in stealth — engineering toward what comes next for the brain, the body, and what people are capable of.
+    </p>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <a href="mailto:info@patangia.tech" class="cta">
+      <span>Get in Touch</span>
+      <svg class="cta-arrow" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true">
+        <path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </a>
+  </main>
+
+  <footer>
+    <span>© 2026 Patangia Tech, Inc.</span>
+    <div class="footer-meta">
+      <a href="mailto:info@patangia.tech">info@patangia.tech</a>
+      <span class="dot" aria-hidden="true"></span>
+      <span>All rights reserved</span>
+    </div>
+  </footer>
 
   <script>
-    window.addEventListener('scroll', function () {
-      const logo = document.querySelector('.logo');
-      if (window.scrollY > 30) {
-        logo.classList.add('shrink');
-      } else {
-        logo.classList.remove('shrink');
+    /* ───────────────────────────────────────────────────
+       Neural particle network
+       — Drifting nodes connected by faint lines.
+       — Subtle pulse + cursor influence.
+       — Pauses when tab is hidden; respects reduced-motion.
+       ─────────────────────────────────────────────────── */
+    (function () {
+      const canvas = document.getElementById('neural');
+      const ctx = canvas.getContext('2d');
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      let W = 0, H = 0;
+      let nodes = [];
+      let raf = null;
+      let paused = false;
+
+      const mouse = { x: -9999, y: -9999, active: false };
+
+      function resize() {
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.width = Math.floor(W * dpr);
+        canvas.height = Math.floor(H * dpr);
+        canvas.style.width = W + 'px';
+        canvas.style.height = H + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       }
-    });
+
+      function init() {
+        resize();
+        // Density scales with viewport; capped so it never gets heavy
+        const target = Math.round(60 * (W / 1440));
+        const count = Math.max(28, Math.min(85, target));
+        nodes = [];
+        for (let i = 0; i < count; i++) {
+          nodes.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            vx: (Math.random() - 0.5) * 0.18,
+            vy: (Math.random() - 0.5) * 0.18,
+            r: Math.random() * 1.3 + 0.5,
+            phase: Math.random() * Math.PI * 2,
+          });
+        }
+      }
+
+      const LINK_DIST = 150;
+
+      function frame(t) {
+        if (paused) return;
+        ctx.clearRect(0, 0, W, H);
+
+        // Update + draw nodes
+        for (let i = 0; i < nodes.length; i++) {
+          const a = nodes[i];
+          a.x += a.vx;
+          a.y += a.vy;
+          // Bounce off edges
+          if (a.x < 0 || a.x > W) a.vx *= -1;
+          if (a.y < 0 || a.y > H) a.vy *= -1;
+
+          // Cursor gently attracts
+          if (mouse.active) {
+            const dx = mouse.x - a.x;
+            const dy = mouse.y - a.y;
+            const d = Math.sqrt(dx * dx + dy * dy);
+            if (d < 220 && d > 1) {
+              const f = (1 - d / 220) * 0.35;
+              a.x += (dx / d) * f;
+              a.y += (dy / d) * f;
+            }
+          }
+
+          // Subtle pulse — like firing rate variance
+          const pulse = 0.55 + 0.45 * Math.sin(t * 0.0011 + a.phase);
+          ctx.beginPath();
+          ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(212, 169, 96, ' + (0.6 * pulse).toFixed(3) + ')';
+          ctx.fill();
+        }
+
+        // Draw connecting lines
+        ctx.lineWidth = 0.55;
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const a = nodes[i], b = nodes[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const d2 = dx * dx + dy * dy;
+            if (d2 < LINK_DIST * LINK_DIST) {
+              const d = Math.sqrt(d2);
+              const alpha = (1 - d / LINK_DIST) * 0.28;
+              ctx.strokeStyle = 'rgba(245, 239, 230, ' + alpha.toFixed(3) + ')';
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        if (!reduced) raf = requestAnimationFrame(frame);
+      }
+
+      function onMouse(e) {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+        mouse.active = true;
+      }
+      function onLeave() {
+        mouse.active = false;
+      }
+
+      // Throttle resize
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(init, 120);
+      });
+      window.addEventListener('mousemove', onMouse, { passive: true });
+      window.addEventListener('mouseleave', onLeave);
+
+      // Pause when tab is hidden
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          paused = true;
+          if (raf) cancelAnimationFrame(raf);
+        } else {
+          paused = false;
+          if (!reduced) raf = requestAnimationFrame(frame);
+        }
+      });
+
+      init();
+      if (reduced) {
+        // Render a single static frame for users who prefer reduced motion
+        frame(0);
+      } else {
+        raf = requestAnimationFrame(frame);
+      }
+    })();
   </script>
 </body>
 </html>
